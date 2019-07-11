@@ -27,7 +27,6 @@ export default {
   width: 1000px;
   height: 60px;
   margin: 0 auto;
-  border-bottom: 1px solid #989898;
 }
 .list-nav .list {
   width: 100%;
