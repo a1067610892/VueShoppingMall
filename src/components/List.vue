@@ -12,7 +12,7 @@
               <h4 class="Home-item-h4">￥{{item.price}}</h4>
             </div>
             <div class="Home-item-bottom" v-show="listIndex === index">
-              <button class="Home-btn" @click="getInto(item)">查看详情</button>
+              <button class="Home-btn" @click="getInto(item, index)">查看详情</button>
               <button class="Home-btn">加入购物车</button>
             </div>
           </div>
@@ -41,12 +41,13 @@ export default {
     leave () {
       this.listIndex = -1
     },
-    getInto (item) {
+    getInto (item, index) {
       this.$router.push({
         name: 'Details',
         path: '/Details',
         query: {
-          listitem: JSON.stringify(item)
+          listitem: JSON.stringify(item),
+          Index: index
         }
       })
     }

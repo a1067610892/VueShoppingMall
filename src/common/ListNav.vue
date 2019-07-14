@@ -1,7 +1,7 @@
 <template>
   <div class="list-nav">
     <ul class="list">
-      <li>首页</li>
+      <li @click="Return">首页</li>
       <li>手机</li>
       <li>官方配件</li>
       <li>周边产品</li>
@@ -17,6 +17,14 @@ export default {
   name: 'ListNav',
   data () {
     return {
+    }
+  },
+  methods: {
+    Return () {
+      this.$router.push({
+        name: 'Home',
+        path: '/'
+      })
     }
   }
 }

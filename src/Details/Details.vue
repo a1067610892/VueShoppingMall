@@ -19,13 +19,13 @@
           </div>
           <div class="box-content-bottom">
             <span>数量</span>
-            <button class="reduce"></button>
+            <button class="reduce" :class="sumshow == false ? 'nostart' : ''" @click="Reduce"></button>
             <span class="num">{{sum}}</span>
-            <button class="plus"></button>
+            <button class="plus" :class="sumshow == true ? 'nostart' : ''" @click="Plus"></button>
           </div>
         </div>
         <button class="btn">加入购物车</button>
-        <button class="btn">现在购买</button>
+        <button class="btn" @click="checkout">现在购买</button>
       </div>
     </div>
   </div>
@@ -41,16 +41,47 @@ export default {
         spec_json: []
       },
       sum: 1,
-      ListIndex: 0
+      ListIndex: 0,
+      sumshow: false,
+      numIndex: 0
     }
   },
   mounted () {
     this.list = JSON.parse(this.$route.query.listitem)
-    console.log(this.list)
+    this.numIndex = this.$route.query.Index
   },
   methods: {
+    /* 切换样式和图片 */
     Switch (index) {
       this.ListIndex = index
+    },
+    /* 购物数量加 */
+    Plus () {
+      if (this.sum !== this.list.limit_num) {
+        this.sum++
+      } else {
+        this.sumshow = true
+      }
+    },
+    /* 购物数量减 */
+    Reduce () {
+      if (this.sum !== 1) {
+        this.sum--
+      } else {
+        this.sumshow = false
+      }
+    },
+    /* 点击跳转到收获页面 */
+    checkout () {
+      this.$router.push({
+        name: 'Checkout',
+        path: '/Checkout',
+        query: {
+          item: JSON.stringify(this.list),
+          number: this.sum,
+          itemIndex: this.numIndex
+        }
+      })
     }
   }
 }
@@ -212,5 +243,8 @@ export default {
 }
 .details .details-box .box-right .btn:nth-of-type(2):hover {
   background: linear-gradient(#f6f6f6,#ededed);
+}
+.nostart {
+  cursor: not-allowed;
 }
 </style>

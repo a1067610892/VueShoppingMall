@@ -15,7 +15,6 @@
 <script>
 import HomeList from '../components/List'
 import getData from '../lib/newItemsData'
-// import getData from '../lib/goodData'
 export default {
   name: 'Home',
   data () {
@@ -28,7 +27,6 @@ export default {
   },
   mounted () {
     this.ArrayList = getData
-    console.log(getData)
   }
 }
 </script>
