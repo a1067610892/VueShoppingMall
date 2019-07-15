@@ -1,13 +1,13 @@
 <template>
   <div class="checkout">
     <div class="checkout-head-box">
-      <h1 class="head-title">收获信息</h1>
+      <nav-title :content="'收获信息'"></nav-title>
       <div>
         111111111111111111111
       </div>
     </div>
     <div class="checkout-head-box height">
-      <h1 class="head-title">发票信息</h1>
+      <nav-title :content="'发票信息'"></nav-title>
       <div class="head-box">
         <p class="head-p">发票类型：电子发票</p>
         <div class="Radio-box">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="checkout-head-box">
-      <h1 class="head-title">购物清单</h1>
+      <nav-title :content="'购物清单'"></nav-title>
       <header class="head-nav">
         <ul>
           <li>商品名称</li>
@@ -52,18 +52,14 @@
           <span>+￥8.00</span>
         </div>
       </div>
-      <footer class="head-footer">
-        <div class="head-footer-right">
-          <button @click="placeOrder">提交订单</button>
-          <span class="footer-total">￥{{(mun * itemlist.price) + 8}}.00</span>
-          <span class="number">应付金额：</span>
-        </div>
-      </footer>
+      <footer-bottom :item="itemlist" :content="'提交订单'" :num='mun' :price="itemlist.price"></footer-bottom>
     </div>
   </div>
 </template>
 
 <script>
+import NavTitle from '../common/Title'
+import FooterBottom from '../components/Footer'
 export default {
   name: 'Checkout',
   data () {
@@ -76,6 +72,10 @@ export default {
       ListIndex: 0
     }
   },
+  components: {
+    NavTitle,
+    FooterBottom
+  },
   mounted () {
     this.itemlist = JSON.parse(this.$route.query.item)
     this.mun = this.$route.query.number
@@ -87,12 +87,6 @@ export default {
     },
     Switchshow () {
       this.show = true
-    },
-    placeOrder () {
-      this.$router.push({
-        name: 'Payment',
-        path: '/Payment'
-      })
     }
   }
 }
@@ -113,16 +107,6 @@ export default {
 }
 .checkout .height {
   height: 250px;
-}
-.checkout .head-title {
-  padding: 0 10px 0 28px;
-  height: 60px;
-  line-height: 60px;
-  background: linear-gradient(#FFF,#F5F5F5);
-  border-bottom: 1px solid #DCDCDC;
-  border-radius: 10px 10px 0 0;
-  color: #646464;
-  font-size: 18px;
 }
 .checkout .checkout-head-box .head-box {
   padding: 22px 29px 29px 28px;
@@ -260,40 +244,5 @@ export default {
   float: left;
   line-height: 34px;
   text-align: right;
-}
-.head-footer {
-  width: 1220px;
-  height: 92px;
-  line-height: 92px;
-}
-.head-footer .head-footer-right {
-  height: 51px;
-  line-height: 51px;
-  padding: 22px 29px 19px 30px;
-}
-.head-footer .head-footer-right>button {
-  width: 136px;
-  height: 46px;
-  background: linear-gradient(#6F97E5,#527ED9);
-  border-radius: 6px;
-  color: #FFF;
-  font-size: 16px;
-  float: right;
-  margin-left: 20px;
-}
-.head-footer .head-footer-right .footer-total {
-  height: 50px;
-  display: block;
-  float: right;
-  text-align: center;
-  font-size: 24px;
-  color: #D44D44;
-}
-.head-footer .head-footer-right .number {
-  display: block;
-  float: right;
-  height: 50px;
-  line-height: 50px;
-  margin-right: 10px;
 }
 </style>
