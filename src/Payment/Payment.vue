@@ -23,7 +23,7 @@ export default {
   },
   mounted () {
     this.Pirce = Number(this.$route.query.money)
-    this.count = this.$route.query.Number
+    this.count = Number(this.$route.query.Number)
   },
   components: {
     NavTitle,

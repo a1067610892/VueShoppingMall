@@ -2,8 +2,18 @@
   <div class="checkout">
     <div class="checkout-head-box">
       <nav-title :content="'收获信息'"></nav-title>
-      <div>
-        111111111111111111111
+      <div class="head-item-box">
+        <div class="head-item" v-for="(item, index) in receiveInfo" :key="index">
+          <span class="head-item-title">{{item.name}}</span>
+          <p>{{item.phone}}</p>
+          <p>{{item.province}} {{item.city}} {{item.county}}</p>
+          <p>{{item.add}}</p>
+        </div>
+        <div class="head-item">
+          <span class="tianjia">+</span>
+          <p style="text-align:center;margin:0;">添加使用新地址</p>
+        </div>
+        <div class="clear"></div>
       </div>
     </div>
     <div class="checkout-head-box height">
@@ -53,12 +63,14 @@
         </div>
       </div>
       <footer-bottom :item="itemlist" :content="'提交订单'" :num='mun' :price="itemlist.price"></footer-bottom>
+      <harvest></harvest>
     </div>
   </div>
 </template>
 
 <script>
 import NavTitle from '../common/Title'
+import Harvest from '../components/Harvest'
 import FooterBottom from '../components/Footer'
 export default {
   name: 'Checkout',
@@ -69,16 +81,48 @@ export default {
         sku_list: [{color: ''}, {color: ''}, {color: ''}, {color: ''}]
       },
       mun: 0,
-      ListIndex: 0
+      ListIndex: 0,
+      receiveInfo: [
+        {
+          'name': '王某某',
+          'phone': '13811111111',
+          'areaCode': '010',
+          'landLine': '64627856',
+          'provinceId': 110000,
+          'province': '北京市',
+          'cityId': 110100,
+          'city': '市辖区',
+          'countyId': 110106,
+          'county': '海淀区',
+          'add': '上地十街辉煌国际西6号楼319室',
+          'default': true,
+          'checked': true
+        }, {
+          'name': '李某某',
+          'phone': '13811111111',
+          'areaCode': '010',
+          'landLine': '64627856',
+          'provinceId': 110000,
+          'province': '北京市',
+          'cityId': 110100,
+          'city': '市辖区',
+          'countyId': 110106,
+          'county': '海淀区',
+          'add': '上地十街辉煌国际东6号楼350室',
+          'default': false,
+          'checked': false
+        }
+      ]
     }
   },
   components: {
     NavTitle,
-    FooterBottom
+    FooterBottom,
+    Harvest
   },
   mounted () {
     this.itemlist = JSON.parse(this.$route.query.item)
-    this.mun = this.$route.query.number
+    this.mun = Number(this.$route.query.number)
     this.ListIndex = this.$route.query.itemIndex
   },
   methods: {
@@ -97,6 +141,9 @@ export default {
   width: 1220px;
   margin: 40px auto;
 }
+.clear {
+  clear: both;
+}
 .checkout .checkout-head-box {
   border: 1px solid #D1D1D1;
   border-color: rgba(0,0,0,.14);
@@ -107,6 +154,46 @@ export default {
 }
 .checkout .height {
   height: 250px;
+}
+.checkout .checkout-head-box .head-item-box {
+  background: #FFF;
+  padding: 30px 13px 0;
+}
+.checkout .checkout-head-box .head-item-box .head-item {
+  width: 278px;
+  height: 160px;
+  border-radius: 3px;
+  border: 1px solid #E5E5E5;
+  margin: 0 20px 20px 0;
+  background: #FAFAFA;
+  color: #626262;
+  cursor: pointer;
+  float: left;
+}
+.checkout .checkout-head-box .head-item-box .head-item:hover {
+  background: #F2F2F2;
+}
+.checkout .checkout-head-box .head-item-box .head-item .tianjia {
+  font-size: 24px;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  margin: 20% 0 0 0;
+}
+.checkout .checkout-head-box .head-item-box .head-item .head-item-title {
+  display: inline-block;
+  margin: 20px 0 10px 20px;
+  font-size: 16px;
+  color: #666;
+}
+.checkout .checkout-head-box .head-item-box .head-item>p {
+  color: #999;
+  margin: 0 0 0 20px;
+  font-size: 14px;
+  height: 25px;
+  line-height: 25px;
 }
 .checkout .checkout-head-box .head-box {
   padding: 22px 29px 29px 28px;

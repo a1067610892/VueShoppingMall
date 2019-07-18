@@ -1,22 +1,23 @@
 <template>
   <div id="list">
     <div class="Home-content">
-        <div class="item-box" v-for="(item, index) in list" :key="index">
-          <div class="Home-item" @mouseover="goIn(index)" @mouseout="leave">
-            <div class="Home-item-top">
-              <img class="Home-item-img" :src="item.ali_image">
-              <h2 class="Home-item-title">{{item.title}}</h2>
-              <h3 class="Home-item-h3">{{item.sub_title}}</h3>
-            </div>
-            <div class="Home-item-bottom" v-show="listIndex !== index">
-              <h4 class="Home-item-h4">￥{{item.price}}</h4>
-            </div>
-            <div class="Home-item-bottom" v-show="listIndex === index">
-              <button class="Home-btn" @click="getInto(item, index)">查看详情</button>
-              <button class="Home-btn">加入购物车</button>
-            </div>
+      <div class="item-box" v-for="(item, index) in list" :key="index">
+        <div class="Home-item" @mouseover="goIn(index)" @mouseout="leave">
+          <div class="Home-item-top">
+            <img class="Home-item-img" :src="item.ali_image">
+            <h2 class="Home-item-title">{{item.title}}</h2>
+            <h3 class="Home-item-h3">{{item.sub_title}}</h3>
+          </div>
+          <div class="Home-item-bottom" v-show="listIndex !== index">
+            <h4 class="Home-item-h4">￥{{item.price}}</h4>
+          </div>
+          <div class="Home-item-bottom" v-show="listIndex === index">
+            <button class="Home-btn" @click="getInto(item, index)">查看详情</button>
+            <button class="Home-btn">加入购物车</button>
           </div>
         </div>
+      </div>
+      <div class="clear"></div>
     </div>
   </div>
 </template>
@@ -56,11 +57,15 @@ export default {
 </script>
 
 <style scoped>
+.clear {
+  clear: both;
+}
 .Home-content {
   width: 1220px;
   background: #FFF;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
+  margin: 0 0 40px 0;
 }
 .Home-content .item-box {
   float: left;
