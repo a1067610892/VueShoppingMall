@@ -9,7 +9,7 @@
           <p>{{item.province}} {{item.city}} {{item.county}}</p>
           <p>{{item.add}}</p>
         </div>
-        <div class="head-item">
+        <div class="head-item" @click="Addto">
           <span class="tianjia">+</span>
           <p style="text-align:center;margin:0;">添加使用新地址</p>
         </div>
@@ -63,7 +63,7 @@
         </div>
       </div>
       <footer-bottom :item="itemlist" :content="'提交订单'" :num='mun' :price="itemlist.price"></footer-bottom>
-      <harvest></harvest>
+      <harvest :alert="alertBoolean" @sendcollect="close"></harvest>
     </div>
   </div>
 </template>
@@ -77,6 +77,7 @@ export default {
   data () {
     return {
       show: false,
+      alertBoolean: false,
       itemlist: {
         sku_list: [{color: ''}, {color: ''}, {color: ''}, {color: ''}]
       },
@@ -131,6 +132,12 @@ export default {
     },
     Switchshow () {
       this.show = true
+    },
+    Addto () {
+      this.alertBoolean = true
+    },
+    close (sendcollectBoolean) {
+      this.alertBoolean = sendcollectBoolean
     }
   }
 }
